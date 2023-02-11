@@ -27,19 +27,21 @@ void draw() {
   fill(#FFE967);
   star(0, 0, 30, 70, 5);
   popMatrix();
-  
+
   noStroke();
   fill(255);
   float x = width;
   float len2 = 25;
-  int number = 50;
-  illusion(x, number, len2, radians(angle2));
+  int num = 50;
+
+  pushMatrix();
+  illusion(x, len2, num, radians(angle2));
+  popMatrix();
 
   if (isSpinning) {
     angle1 += 3 * directionn;
     angle2 -= 0.1;
   }
-
   if (len1 >= 1625) {
     len1 = 800;
     colr1 = (int)(Math.random()*150) + 100;
@@ -76,24 +78,27 @@ public void star(float x, float y, float radius1, float radius2, int npoints) {
   endShape(CLOSE);
 }
 
-public void illusion(float x, int num, float len2, float rotate){
-  if (num > 0){
-   pushMatrix();
-   rotate(rotate);
-   ellipse(x, 0, len2, len2);
-   popMatrix();
-   
-   illusion(x * 0.95, num - 1, len2, rotate + radians(angle2));
-  
+
+public void illusion(float x, float len2, int num, float rotation) {
+  if (num <= 0) {
+    return;
   }
+
+  pushMatrix();
+  rotate(rotation);
+  ellipse(x, 0, len2, len2);
+  popMatrix();
+
+  illusion(x * 0.95, len2, num - 1, rotation + radians(angle2));
 }
+
 
 public void keyPressed()
 {
   if (key=='w')
   {
-    if(len1 > 100){
-     len1 -= 25; 
+    if (len1 > 100) {
+      len1 -= 25;
     }
   }
   if (key=='s')
