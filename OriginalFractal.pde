@@ -1,8 +1,8 @@
-float r1;
-float r2;
+float angle1;
+float angle2;
 float len1 = 150;
-boolean spin = true;
-int dir = 1;
+boolean isSpinning = true;
+int directionn = 1;
 int colr1 = (int)(Math.random()*150) + 100;
 int colr2 = (int)(Math.random()*150) + 100;
 int colr3 = (int)(Math.random()*150) + 100;
@@ -15,7 +15,7 @@ void draw() {
   stroke(1);
   translate(width/2, height/2);
   pushMatrix();
-  rotate(radians(r1));
+  rotate(radians(angle1));
   fractal(len1/2, 0, len1);
   fractal(0.0, len1/2, len1);
   fractal(-len1/2, 0, len1);
@@ -23,7 +23,7 @@ void draw() {
   popMatrix();
 
   pushMatrix();
-  rotate(radians(-r1));
+  rotate(radians(-angle1));
   fill(#FFE967);
   star(0, 0, 30, 70, 5);
   popMatrix();
@@ -33,11 +33,11 @@ void draw() {
   float x = width;
   float len2 = 25;
   int number = 50;
-  illusion(x, number, len2, radians(r2));
+  illusion(x, number, len2, radians(angle2));
 
-  if (spin) {
-    r1 += 3 * dir;
-    r2 -= 0.1;
+  if (isSpinning) {
+    angle1 += 3 * directionn;
+    angle2 -= 0.1;
   }
 
   if (len1 >= 1625) {
@@ -83,7 +83,7 @@ public void illusion(float x, int num, float len2, float rotate){
    ellipse(x, 0, len2, len2);
    popMatrix();
    
-   illusion(x * 0.95, num - 1, len2, rotate + radians(r2));
+   illusion(x * 0.95, num - 1, len2, rotate + radians(angle2));
   
   }
 }
@@ -101,14 +101,14 @@ public void keyPressed()
     len1 += 25;
   }
   if (key == ' ') {
-    if (spin) {
-      spin = false;
+    if (isSpinning) {
+      isSpinning = false;
     } else {
-      spin = true;
+      isSpinning = true;
     }
   }
   if (key == 'r') {
-    dir *= -1;
+    directionn *= -1;
   }
   if (key == 'c') {
     colr1 = (int)(Math.random()*150) + 100;
